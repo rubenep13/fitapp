@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/devs/fitapp_setup/fitapp/**)",
+      "Bash(cp -r D:/devs/fitapp_setup/fitapp/. D:/devs/fitapp/)",
+      "Bash(cp D:/devs/fitapp/_tmp_readme/README.md D:/devs/fitapp/README.md)",
+      "Bash(rm -rf D:/devs/fitapp/_tmp_readme)",
+      "Bash(rm -rf D:/devs/fitapp_setup)",
+      "Bash(cd D:/devs/fitapp && npx expo install expo-router expo-sqlite && npm install zustand drizzle-orm && npm install -D drizzle-kit nativewind tailwindcss 2>&1)",
+      "Bash(node -e \"require\\('D:/devs/fitapp/metro.config.js'\\)\" 2>&1)",
+      "Bash(grep -r \"worklets\" D:/devs/fitapp/node_modules/nativewind/dist/babel* 2>/dev/null | head -5)",
+      "Bash(find D:/devs/fitapp/node_modules -maxdepth 3 -name \"package.json\" | xargs grep -l '\"react-native-worklets\"' 2>/dev/null | head -10)",
+      "Bash(find D:/devs/fitapp/node_modules/nativewind -name \"package.json\" | xargs grep -l \"worklets\" 2>/dev/null)",
+      "Bash(node -e \"console.log\\(require\\('D:/devs/fitapp/node_modules/react-native-css-interop/package.json'\\).version\\)\")",
+      "Bash(cd D:/devs/fitapp && npm show react-native-css-interop@\"<0.2\" version 2>&1 | tail -5)",
+      "Bash(node -e \"console.log\\(require\\('D:/devs/fitapp/node_modules/nativewind/package.json'\\).peerDependencies\\)\")",
+      "Bash(node -e \"console.log\\(require\\('D:/devs/fitapp/node_modules/nativewind/package.json'\\).dependencies\\)\")",
+      "Bash(cd D:/devs/fitapp && npx expo install react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated 2>&1 | tail -8)"
+    ]
+  }
+}
