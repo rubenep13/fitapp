@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-export default function TrainingLayout() {
+export default function NutritionLayout() {
   return (
     <Stack
       screenOptions={{

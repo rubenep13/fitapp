@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTrainingStore, type ActiveSetInput } from "@/stores/trainingStore";
@@ -54,7 +55,6 @@ export default function SessionScreen() {
     init();
   }, [routineDayId]);
 
-  // Back navigation guard
   useEffect(() => {
     const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
       if (activeSets.length === 0) {
@@ -141,8 +141,8 @@ export default function SessionScreen() {
 
   if (loading) {
     return (
-      <View className="flex-1 bg-gray-950 items-center justify-center">
-        <ActivityIndicator color="#60a5fa" />
+      <View className="flex-1 bg-zinc-950 items-center justify-center">
+        <ActivityIndicator color="#f97316" />
       </View>
     );
   }
@@ -151,11 +151,11 @@ export default function SessionScreen() {
     <>
       <Stack.Screen options={{ title: dayName }} />
       <KeyboardAvoidingView
-        className="flex-1 bg-gray-950"
+        className="flex-1 bg-zinc-950"
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
-          contentContainerStyle={{ padding: 16, paddingBottom: 120, gap: 12 }}
+          contentContainerStyle={{ padding: 16, paddingBottom: 140, gap: 12 }}
           keyboardShouldPersistTaps="handled"
         >
           {activeExercises.map((exercise) => {
@@ -163,37 +163,53 @@ export default function SessionScreen() {
             const lastSets =
               lastSession?.exercises.find((e) => e.id === exercise.id)?.sets ?? [];
             const isExpanded = expandedLastSession[exercise.id] ?? false;
+            const progress = Math.min(exerciseSets.length / exercise.targetSets, 1);
 
             return (
-              <View key={exercise.id} className="bg-gray-800 rounded-2xl overflow-hidden">
+              <View key={exercise.id} className="bg-zinc-900 rounded-2xl overflow-hidden">
+                {/* Progress bar */}
+                <View className="h-1 bg-zinc-800">
+                  <View
+                    className="h-1 bg-orange-500"
+                    style={{ width: `${progress * 100}%` }}
+                  />
+                </View>
+
                 {/* Exercise header */}
-                <View className="px-4 pt-4 pb-2">
-                  <Text className="text-white text-base font-semibold">{exercise.name}</Text>
-                  <Text className="text-gray-400 text-xs mt-0.5">
-                    {exercise.targetSets} series objetivo
-                  </Text>
+                <View className="px-4 pt-3 pb-2 flex-row items-center justify-between">
+                  <View>
+                    <Text className="text-white text-base font-bold">{exercise.name}</Text>
+                    <Text className="text-zinc-500 text-xs mt-0.5">
+                      {exerciseSets.length} / {exercise.targetSets} series
+                    </Text>
+                  </View>
                 </View>
 
                 {/* Last session collapsible */}
                 {lastSets.length > 0 && (
-                  <View className="mx-4 mb-2 bg-gray-700 rounded-xl overflow-hidden">
+                  <View className="mx-4 mb-2 bg-zinc-800 rounded-xl overflow-hidden">
                     <TouchableOpacity
-                      className="px-3 py-2 flex-row items-center justify-between"
+                      className="px-3 py-2 flex-row items-center gap-2"
                       onPress={() => toggleLastSession(exercise.id)}
                     >
-                      <Text className="text-gray-300 text-xs font-medium">
+                      <Ionicons name="time-outline" size={13} color="#71717a" />
+                      <Text className="text-zinc-400 text-xs font-medium flex-1">
                         Última sesión
                         {lastSession?.date ? ` · ${lastSession.date}` : ""}
                       </Text>
-                      <Text className="text-gray-400 text-xs">{isExpanded ? "▲" : "▼"}</Text>
+                      <Ionicons
+                        name={isExpanded ? "chevron-up" : "chevron-down"}
+                        size={13}
+                        color="#52525b"
+                      />
                     </TouchableOpacity>
                     {isExpanded &&
                       lastSets.map((s) => (
                         <View key={s.id} className="px-3 pb-1.5 flex-row gap-3">
-                          <Text className="text-gray-400 text-xs w-12">
+                          <Text className="text-zinc-500 text-xs w-14">
                             Serie {s.setNumber}
                           </Text>
-                          <Text className="text-gray-300 text-xs">
+                          <Text className="text-zinc-300 text-xs">
                             {s.reps} reps × {s.weightKg} kg
                           </Text>
                         </View>
@@ -202,13 +218,12 @@ export default function SessionScreen() {
                 )}
 
                 {/* Current sets */}
-                <View className="px-4 pb-2 gap-2">
-                  {/* Column headers */}
+                <View className="px-4 pb-3 gap-2">
                   {exerciseSets.length > 0 && (
-                    <View className="flex-row items-center gap-2 px-1">
-                      <Text className="text-gray-500 text-xs w-8">#</Text>
-                      <Text className="text-gray-500 text-xs flex-1 text-center">Reps</Text>
-                      <Text className="text-gray-500 text-xs flex-1 text-center">Kg</Text>
+                    <View className="flex-row items-center gap-2 px-1 mb-1">
+                      <View className="w-8" />
+                      <Text className="text-zinc-600 text-xs flex-1 text-center">REPS</Text>
+                      <Text className="text-zinc-600 text-xs flex-1 text-center">KG</Text>
                       <View className="w-8" />
                     </View>
                   )}
@@ -217,14 +232,14 @@ export default function SessionScreen() {
                       key={`${s.exerciseId}-${s.setNumber}`}
                       className="flex-row items-center gap-2"
                     >
-                      <Text className="text-gray-400 text-sm w-8 text-center">
-                        {s.setNumber}
-                      </Text>
+                      <View className="w-8 h-8 rounded-lg bg-orange-500/20 items-center justify-center">
+                        <Text className="text-orange-400 text-xs font-bold">{s.setNumber}</Text>
+                      </View>
                       <TextInput
-                        className="flex-1 bg-gray-700 text-white text-center rounded-lg py-2 text-sm"
+                        className="flex-1 bg-zinc-800 text-white text-center rounded-xl py-2.5 text-sm font-semibold"
                         value={s.reps > 0 ? String(s.reps) : ""}
                         placeholder="0"
-                        placeholderTextColor="#6b7280"
+                        placeholderTextColor="#3f3f46"
                         keyboardType="number-pad"
                         onChangeText={(v) =>
                           updateSet(s.exerciseId, s.setNumber, {
@@ -233,10 +248,10 @@ export default function SessionScreen() {
                         }
                       />
                       <TextInput
-                        className="flex-1 bg-gray-700 text-white text-center rounded-lg py-2 text-sm"
+                        className="flex-1 bg-zinc-800 text-white text-center rounded-xl py-2.5 text-sm font-semibold"
                         value={s.weightKg > 0 ? String(s.weightKg) : ""}
                         placeholder="0"
-                        placeholderTextColor="#6b7280"
+                        placeholderTextColor="#3f3f46"
                         keyboardType="decimal-pad"
                         onChangeText={(v) =>
                           updateSet(s.exerciseId, s.setNumber, {
@@ -245,19 +260,20 @@ export default function SessionScreen() {
                         }
                       />
                       <TouchableOpacity
-                        className="w-8 items-center"
+                        className="w-8 h-8 items-center justify-center"
                         onPress={() => removeSet(s.exerciseId, s.setNumber)}
                       >
-                        <Text className="text-red-400 text-lg">×</Text>
+                        <Ionicons name="close" size={18} color="#52525b" />
                       </TouchableOpacity>
                     </View>
                   ))}
 
                   <TouchableOpacity
-                    className="border border-dashed border-gray-600 rounded-lg py-2 items-center mt-1"
+                    className="border border-dashed border-zinc-700 rounded-xl py-3 items-center flex-row justify-center gap-2 mt-1"
                     onPress={() => handleAddSet(exercise)}
                   >
-                    <Text className="text-gray-400 text-sm">+ Serie</Text>
+                    <Ionicons name="add" size={16} color="#52525b" />
+                    <Text className="text-zinc-500 text-sm font-medium">Añadir serie</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -265,27 +281,41 @@ export default function SessionScreen() {
           })}
 
           {activeExercises.length === 0 && (
-            <View className="items-center py-12">
-              <Text className="text-gray-500 text-base">
+            <View className="items-center py-16 gap-4">
+              <Ionicons name="barbell-outline" size={40} color="#3f3f46" />
+              <Text className="text-zinc-500 text-base text-center">
                 Este día no tiene ejercicios.
               </Text>
               <TouchableOpacity
-                className="mt-4"
+                className="flex-row items-center gap-1"
                 onPress={() => router.push(`/training/routine/${routineDayId}`)}
               >
-                <Text className="text-blue-400">Añadir ejercicios →</Text>
+                <Text className="text-orange-400 font-medium">Añadir ejercicios</Text>
+                <Ionicons name="arrow-forward" size={15} color="#f97316" />
               </TouchableOpacity>
             </View>
           )}
         </ScrollView>
 
         {/* Finalize button */}
-        <View className="absolute bottom-0 left-0 right-0 px-4 pb-8 pt-3 bg-gray-950 border-t border-gray-800">
+        <View className="absolute bottom-0 left-0 right-0 px-4 pb-8 pt-4 bg-zinc-950 border-t border-zinc-900">
+          <View className="flex-row items-center justify-between mb-3 px-1">
+            <Text className="text-zinc-500 text-xs">
+              {activeSets.length} series registradas
+            </Text>
+            {sessionStartTime != null && (
+              <Text className="text-zinc-500 text-xs">
+                {Math.round((Date.now() - sessionStartTime) / 60000)} min
+              </Text>
+            )}
+          </View>
           <TouchableOpacity
-            className="bg-blue-600 rounded-2xl py-4 items-center"
+            className="bg-orange-500 rounded-2xl py-4 items-center"
             onPress={handleFinalize}
           >
-            <Text className="text-white font-bold text-base">Finalizar sesión</Text>
+            <Text className="text-white font-bold text-base tracking-wide">
+              Finalizar sesión
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

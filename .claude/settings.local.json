@@ -15,7 +15,13 @@
       "Bash(cd D:/devs/fitapp && npm show react-native-css-interop@\"<0.2\" version 2>&1 | tail -5)",
       "Bash(node -e \"console.log\\(require\\('D:/devs/fitapp/node_modules/nativewind/package.json'\\).peerDependencies\\)\")",
       "Bash(node -e \"console.log\\(require\\('D:/devs/fitapp/node_modules/nativewind/package.json'\\).dependencies\\)\")",
-      "Bash(cd D:/devs/fitapp && npx expo install react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated 2>&1 | tail -8)"
+      "Bash(cd D:/devs/fitapp && npx expo install react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated 2>&1 | tail -8)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(python:*)",
+      "Bash(npm run:*)"
     ]
   }
 }
