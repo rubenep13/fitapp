@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "fitapp",
+    "name": "FitLog",
     "slug": "fitapp",
     "scheme": "fitapp",
     "version": "1.0.0",
@@ -22,7 +22,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.rubenep13.fitapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +31,12 @@
     "plugins": [
       "expo-router",
       "expo-sqlite"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c0d49302-7689-4217-aec9-7bdaeef64e20"
+      }
+    }
   }
 }

@@ -15,9 +15,9 @@
               "state": {
                 "file": "Project.canvas",
                 "viewState": {
-                  "x": -350,
-                  "y": -415,
-                  "zoom": 0
+                  "x": -67.73141914492925,
+                  "y": 74.72044914848985,
+                  "zoom": -0.9999999999999998
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -188,6 +188,9 @@
   },
   "active": "40bdc03a753bf77a",
   "lastOpenFiles": [
+    "app.json.tmp.81392.1773680780889",
+    "app/index.tsx",
+    "eas.json",
     "metro.config.js.tmp.81392.1773677740474",
     "src/db/migrations/index.ts.tmp.81392.1773677735338",
     "app/(tabs)/nutrition/index.tsx",
@@ -196,9 +199,6 @@
     "app/(tabs)/nutrition/log/[date].tsx",
     "app/(tabs)/nutrition/log",
     "app/(tabs)/nutrition/dishes/[dishId].tsx",
-    "app/(tabs)/nutrition/dishes/[dishId].tsx.tmp.81392.1773677352971",
-    "app/(tabs)/nutrition/dishes/index.tsx",
-    "app/(tabs)/nutrition/dishes",
     "CLAUDE.md",
     "AGENTS.md",
     "Project.canvas",

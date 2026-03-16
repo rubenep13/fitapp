@@ -1,0 +1,11 @@
+.agents/
+.claude/
+node_modules/
+.obsidian/
+AGENTS.md
+canvas-tool.py
+CLAUDE.md
+Project.canvas
+README.md
+RULES.md
+skills-lock.json
